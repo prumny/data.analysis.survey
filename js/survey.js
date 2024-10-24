@@ -1,26 +1,28 @@
 // survey.js
 
+// Load the CSV file and parse the survey questions
 async function loadSurvey(csvFile, isPreWorkshop) {
     const response = await fetch(csvFile);
     const csvData = await response.text();
     
-    // Parse the CSV data
+    // Parse the CSV data into questions
     const questions = parseCSV(csvData);
 
-    // Render the questions properly
+    // Render the questions dynamically
     renderQuestions(questions, isPreWorkshop);
 }
 
-// Improved CSV Parsing Function
+// Function to parse CSV data into a usable array of question objects
 function parseCSV(csvData) {
     const lines = csvData.trim().split('\n');
     const headers = lines[0].split(',');
     const questions = [];
 
-    for (let i = 1; i < lines.length; i++) { // Start at 1 to skip headers
+    // Loop through each line (starting from 1 to skip headers)
+    for (let i = 1; i < lines.length; i++) {
         const fields = lines[i].split(',');
 
-        // Ensure all fields exist for a question
+        // Ensure the correct number of fields
         if (fields.length >= 6) {
             questions.push({
                 questionId: fields[0].trim(),
@@ -31,22 +33,21 @@ function parseCSV(csvData) {
                     fields[4].trim(),
                     fields[5].trim(),
                 ],
-                correctAnswerId: fields[6].trim() // This is the correct answer
+                correctAnswerId: fields[6].trim()
             });
         }
     }
     return questions;
 }
 
-// Fixed function to render questions to the form
+// Function to render the questions dynamically in the form
 function renderQuestions(questions, isPreWorkshop) {
     const questionsContainer = document.getElementById('questions');
-    questionsContainer.innerHTML = '';  // Clear the container first
+    questionsContainer.innerHTML = '';  // Clear the container before rendering
 
+    // Loop through each question and append it to the form
     questions.forEach((q, index) => {
         const questionDiv = document.createElement('div');
-
-        // Render question text and answers properly
         questionDiv.innerHTML = `
             <p>${index + 1}. ${q.questionText}</p>
             ${q.answers.map((answer, i) => `
@@ -59,42 +60,40 @@ function renderQuestions(questions, isPreWorkshop) {
         questionsContainer.appendChild(questionDiv);
     });
 
-    // Attach form submission handling
+    // Attach form submission handler
     document.getElementById('surveyForm').onsubmit = (event) => {
         event.preventDefault();  // Prevent page reload
-        submitSurvey(questions, isPreWorkshop);  // Pass questions to the submit handler
+        submitSurvey(questions, isPreWorkshop);  // Submit the survey data
     };
 }
 
-// New and fixed submitSurvey function
+// Function to handle survey submission
 function submitSurvey(questions, isPreWorkshop) {
     const userAnswers = [];
 
-    // Collect user's answers from the form
+    // Collect user-selected answers
     questions.forEach((q) => {
         const selectedAnswer = document.querySelector(`input[name="question${q.questionId}"]:checked`);
         
         if (selectedAnswer) {
             userAnswers.push({
                 questionId: q.questionId,
-                selectedAnswer: selectedAnswer.value,  // Get the selected answer
-                isCorrect: selectedAnswer.value === q.correctAnswerId  // Check if it's correct
+                selectedAnswer: selectedAnswer.value,  // Get selected answer value
+                isCorrect: selectedAnswer.value === q.correctAnswerId  // Check if correct
             });
         } else {
-            // If no answer is selected, push a placeholder
+            // If no answer is selected, mark it as incorrect
             userAnswers.push({
                 questionId: q.questionId,
                 selectedAnswer: null,
-                isCorrect: false  // Mark as incorrect since no answer was provided
+                isCorrect: false
             });
         }
     });
 
-    // Log the user's answers for debugging purposes (you can replace this with actual CSV saving)
+    // Debugging: Log the user's answers to the console
     console.log('User Answers:', userAnswers);
 
-    // Here is where you would send the answers to your CSV or API
-    // You can use the GitHub Actions or any other back-end service to save this data
-
-    alert("Survey submitted!");  // Notify the user of successful submission
+    // Submit user answers (replace this with actual submission logic)
+    alert('Survey submitted! Check the console for details.');
 }
