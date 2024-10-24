@@ -1,3 +1,11 @@
 question_id,question_text,answer_1,answer_2,answer_3,answer_4,correct_answer_id
-1,What is Reach and Impression?,Reach is number of times...,Reach is number of people...,Reach is number of displays...,Reach is number of on-screen displays...,2
-2,Benefit of hashtag?,Help generate data...,Help provide captions...,Automatically increase followers...,Improve content visuals...,2
+1,What is Reach and Impression?,Reach is number of times that your post was on-screen.,Reach is number of people who saw your post.,Reach is the number of displays.,Reach is the number of on-screen displays.,2
+2,Benefit of hashtag?,Help generate data and search,Help provide beautiful captions,Automatically increase the number of followers,Improve the quality of the content visuals,2
+3,What is the main purpose of data analysis in managing page content?,To post content regularly and increase number of followers,To analyze competitors’ pages,To optimize audiences engagement,To improve content design layout,3
+4,What is the correct step of exporting data from Facebook?,Business Suite > Export > Posts & Reels,Business Suite > Content > Export,Posts & Reels > Content > Export,Dashboard > Export > Posts & Reels,1
+5,What is filter in Excel used for?,To eliminate unnecessary posts,To categorize data and reduce errors,To select the best performing posts,To save time during analysis,2
+6,Which metric is crucial for measuring video performance on Facebook?,Reach,Likes,3-second video views,Comments,3
+7,In Excel, what is Pivot Table used for?,To remove irrelevant data,To filter posts by content type,To summarize and view data from different angles,To export data faster,3
+8,When selecting the date range for exporting Facebook data, what is the recommended practice?,Select the exact date of the post,Select a date range before and after the targeted range,Choose any random date,Export data only for the current month,2
+9,What is the maximum length of period that you can export Facebook data in one time?,6 months,Infinity,Less than 1 year,3 months,3
+10,When analyzing Facebook data, why is it important to include demographics such as age and gender?,To increase likes on future posts,To customize content for the most engaged audience,To eliminate irrelevant viewers,To reduce the cost of ads,2
