@@ -1,0 +1,32 @@
+name: Update CSV
+
+on:
+  workflow_dispatch:
+    inputs:
+      answers:
+        description: 'User survey answers'
+        required: true
+        type: string
+      surveyType:
+        description: 'Survey type (pre/post)'
+        required: true
+        type: string
+
+jobs:
+  update_csv:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Append answers to CSV
+      run: |
+        echo "${{ github.event.inputs.answers }}" >> csv/survey_responses.csv
+
+    - name: Commit changes
+      run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Actions"
+        git add csv/survey_responses.csv
+        git commit -m "Update survey responses"
+        git push
