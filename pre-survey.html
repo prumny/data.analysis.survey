@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Workshop Survey</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Pre-Workshop Survey</h1>
+    <form id="surveyForm">
+        <div id="questions"></div>
+        <button type="submit">Submit Survey</button>
+    </form>
+
+    <script src="js/survey.js"></script>
+    <script>
+        // Load survey questions for Pre-Workshop
+        loadSurvey('csv/survey_questions.csv', true);
+    </script>
+</body>
+</html>
