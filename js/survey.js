@@ -2,14 +2,20 @@
 
 // Load the CSV file and parse the survey questions
 async function loadSurvey(csvFile, isPreWorkshop) {
-    const response = await fetch(csvFile);
-    const csvData = await response.text();
+    try {
+        const response = await fetch(csvFile);
+        if (!response.ok) throw new Error('Failed to load survey data');
+        const csvData = await response.text();
     
-    // Parse the CSV data into questions
-    const questions = parseCSV(csvData);
-
-    // Render the questions dynamically
-    renderQuestions(questions, isPreWorkshop);
+        // Parse the CSV data into questions
+        const questions = parseCSV(csvData);
+    
+        // Render the questions dynamically
+        renderQuestions(questions, isPreWorkshop);
+    } catch (error) {
+        console.error('Error loading survey:', error);
+        alert('Failed to load the survey. Please try again later.');
+    }
 }
 
 // Function to parse CSV data into a usable array of question objects
@@ -91,9 +97,15 @@ function submitSurvey(questions, isPreWorkshop) {
         }
     });
 
+    // Check if the user actually answered any questions
+    if (userAnswers.length === 0) {
+        alert('Please answer at least one question.');
+        return;
+    }
+
     // Debugging: Log the user's answers to the console
     console.log('User Answers:', userAnswers);
 
-    // Submit user answers (replace this with actual submission logic)
-    alert('Survey submitted! Check the console for details.');
+    // Provide feedback to the user after submitting
+    alert('Survey submitted successfully!');
 }
